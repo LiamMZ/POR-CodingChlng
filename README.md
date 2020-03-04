@@ -7,10 +7,10 @@ This is a tic-tac-toe command line game that you can play 1-Player against 2 dif
 
 ## Code Details
 ### Board
-  1 2 3
-1 . . .
-2 . . .
-3 . . .
+_ 1 2 3 <br>
+1 X X X <br>
+2 . O . <br>
+3 . O .<br>
 Above is an example of the game board shown in command line. The default board is 3x3 with a starting index of 1.
 ## Players
 For the 1-Player mode the human is automatically the first player, with game marker **X**.
