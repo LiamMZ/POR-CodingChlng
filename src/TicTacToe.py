@@ -11,11 +11,13 @@ class TicTacToe:
 
     def result(self, move, state):
         '''
-        returns the hypothetical result of move `move` in state `state`
+        returns the hypothetical result of making move in state
         move  = (row, col) tuple where player will put their mark (X or O)
         state = a `State` object, to represent whose turn it is and form
                 the basis for generating a **hypothetical** updated state
                 that will result from making the given `move`
+        This returns a hypothetical state, so that the alpha beta AI
+        can check multiple outcomes
         '''
         # Don't do anything if the move isn't a legal one
         if move not in state.moves:
@@ -34,7 +36,7 @@ class TicTacToe:
 
     def compute_utility(self, move, state):
         '''
-        What is the utility of making move `move` in state `state`?
+        returns the utility of making move in state
         If 'X' wins with this move, return 1;
         if 'O' wins return -1;
         else return 0.
@@ -85,31 +87,34 @@ class TicTacToe:
         return state.utility if player=='X' else -state.utility
 
     def display(self):
-        '''display board in console'''
+        '''display board in console with row/col indicies'''
         board = self.state.board
         print("Board:")
         print(' ', end=' ')
+        #print collumn indicies
         for col in range(1, self.ncol + 1):
             print(col, end=' ')
         print() 
         for row in range(1, self.nrow + 1):
+            #print row indicies
             print(row, end=' ')
+            #print board entries or . if there is no mark in space
             for col in range(1, self.ncol + 1):
                 print(board.get((row, col), '.'), end=' ')
             print()
 
-    def handleInput(self, user_input):
+    def handle_input(self, user_input):
         try:
             move = (int(user_input.split()[0]),
                     int(user_input.split()[1]))
-            print(move)
         except (ValueError, KeyError):
             #force key error if invlaid entry
             move = (int(user_input.split()[2]),
                     int(user_input.split()[1]))
-                
+        #check for out of bounds move
         if (move[0]<0 or move[1]<0) or(move[0]>self.nrow or move[1]>self.ncol):
             raise ValueError('Out of Bounds Move')
+        #check if move is already taken
         if(move in self.state.board):
             raise ValueError('Move Already Taken')
 
@@ -143,14 +148,15 @@ class TicTacToe:
                 #user turn
                 if i==1:
                     while True:
+                        #show updated board and request user move
                         self.display()
                         print ('Player-{} please enter the row and collumn for your move separated by a space'
                         .format(self.state.to_move))
                         try:
+                            #try to read in user input
                             input_coords = input()
-                            move = self.handleInput(input_coords)
-                            if move == None:
-                                raise ValueError('Invalid Move')
+                            move = self.handle_input(input_coords)
+                        #if input invalid loop until valid input is recieved
                         except(ValueError, IndexError, KeyError):
                             print('The coordinates you entered are invalid please enter valid coordinates.\n')
                             continue
@@ -158,14 +164,16 @@ class TicTacToe:
                 #AI turn
                 else:
                     move = player2(self)
+                #update state with selected move
                 self.state = self.result(move, self.state)
+                #check for game over
                 if self.game_over(self.state):
+                    #display final board
                     self.display()
+                    #check if there is a winner or draw
                     if self.state.utility==0:
-                        print('The game ends in a draw!')
-                    else:
-                        print('Player-{} wins!'.format('X' if self.state.to_move=='O' else 'O'))
-                    return self.state
+                        return 'The game ends in a draw!'
+                    return 'Player-{} wins!'.format('X' if self.state.to_move=='O' else 'O')
     
     def play_2P_game(self):
         '''Play a game of tic tac toe with 2 human players'''
@@ -175,19 +183,25 @@ class TicTacToe:
             for _ in range(2):
                 turn+=1
                 while True:
+                    #show updated board and request user input
                     self.display()
                     print ('Player-{} please enter the row and collumn for your move separated by a space'
                     .format(self.state.to_move))
                     try:
                         input_coords = input()
-                        move = self.handleInput(input_coords)
+                        move = self.handle_input(input_coords)
+                    #if input is invalid loop until valid input recieved
                     except (ValueError, IndexError, KeyError):
                         print('The coordinates you entered are invalid please enter valid coordinates.\n')
                         continue
                     break
+                #update state with selected move
                 self.state = self.result(move, self.state)
+                #check for game over
                 if self.game_over(self.state):
+                    #display final board
                     self.display()
+                    #check if there is a winner or draw
                     if self.state.utility==0:
                         return 'The game ends in a draw!'
                     return 'Player-{} wins!'.format('X' if self.state.to_move=='O' else 'O')

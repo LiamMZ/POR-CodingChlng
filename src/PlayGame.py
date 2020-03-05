@@ -1,4 +1,3 @@
-import numpy as np
 from TicTacToe import TicTacToe
 from AI import RandomAI
 from AI import AlphaBetaAI
@@ -9,6 +8,8 @@ def handleMenuInput(input):
     return True
 
 def play():
+    '''Function that runs a tic tac toe game
+    Can either play vs an AI or against another human'''
     while True:
         print('Welcome to Tic-Tac-Toe! Please enter an option Below:')
         print('1 - Play solo against an AI')
@@ -35,9 +36,9 @@ def play():
                 continue
             break
         if choice == 1:
-            game.play_1P_game(RandomAI().play)
+            print(game.play_1P_game(RandomAI().play))
         else:
-            game.play_1P_game(AlphaBetaAI().play)
+            print(game.play_1P_game(AlphaBetaAI().play))
     else:
         print(game.play_2P_game())
 
