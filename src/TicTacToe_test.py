@@ -133,5 +133,40 @@ class TicTacToeTest(unittest.TestCase):
             out = TicTacToe().play_2P_game()
         self.assertEqual(out, 'Player-O wins!')
 
+    def test2PGame_Xwin_InvalidInput(self):
+        '''Runs a mock 2-player game where Player-X inputs invalid
+        coordinates but eventually inputs correct coordinates
+        Player-X should win'''
+        mock = ['a 18',
+                '. 2',
+                '2 .',
+                '1 @',
+                '1 1',
+                '1 2',
+                '2 1',
+                '1 3',
+                '3 1']
+        with patch('builtins.input', side_effect=mock):
+            out = TicTacToe().play_2P_game()
+        self.assertEqual(out, 'Player-X wins!')
+
+    def test2PGame_Owin_invalidInput(self):
+        '''Runs a mock 2-player game where Player-O inputs invalid
+        coordinates but eventually inputs correct coordinates
+        Player-O should win'''
+        mock = ['1 1',
+                'a 18',
+                '. 2',
+                '2 .',
+                '1 @',
+                '1 3',
+                '2 1',
+                '3 1',
+                '3 3',
+                '2 2']
+        with patch('builtins.input', side_effect=mock):
+            out = TicTacToe().play_2P_game()
+        self.assertEqual(out, 'Player-O wins!')
+
 if __name__=='__main__':
     unittest.main()

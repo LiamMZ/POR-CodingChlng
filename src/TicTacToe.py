@@ -102,9 +102,12 @@ class TicTacToe:
         try:
             move = (int(user_input.split()[0]),
                     int(user_input.split()[1]))
+            print(move)
         except (ValueError, KeyError):
-            return
-        
+            #force key error if invlaid entry
+            move = (int(user_input.split()[2]),
+                    int(user_input.split()[1]))
+                
         if (move[0]<0 or move[1]<0) or(move[0]>self.nrow or move[1]>self.ncol):
             raise ValueError('Out of Bounds Move')
         if(move in self.state.board):
@@ -146,8 +149,10 @@ class TicTacToe:
                         try:
                             input_coords = input()
                             move = self.handleInput(input_coords)
-                        except (ValueError, IndexError, KeyError):
-                            print('The coordinates you entered are invalide please enter valid coordinates.\n')
+                            if move == None:
+                                raise ValueError('Invalid Move')
+                        except(ValueError, IndexError, KeyError):
+                            print('The coordinates you entered are invalid please enter valid coordinates.\n')
                             continue
                         break
                 #AI turn
@@ -177,7 +182,7 @@ class TicTacToe:
                         input_coords = input()
                         move = self.handleInput(input_coords)
                     except (ValueError, IndexError, KeyError):
-                        print('The coordinates you entered are invalide please enter valid coordinates.\n')
+                        print('The coordinates you entered are invalid please enter valid coordinates.\n')
                         continue
                     break
                 self.state = self.result(move, self.state)
