@@ -20,21 +20,57 @@ class TicTacToeTest(unittest.TestCase):
         expected_board = {(1,1):'X'}
         self.assertEqual(expected_board, state.board)
     
-    def testComputeUtilityX_Row(self):
+    def testComputeUtilityX_Row1(self):
         '''Tests that game.compute_utility returns a utility of 1(Player-X win)
-        on a row-wise win for X'''
+        on a row-wise win for X in row 1'''
         game = TicTacToe()
         game.state.board = {(1,1):'X', (1,2):'X'}
         utility = game.compute_utility((1,3), game.state)
         expected_utility = 1
         self.assertEqual(utility,expected_utility)
-
-    def testComputeUtilityX_Col(self):
+    
+    def testComputeUtilityX_Row2(self):
         '''Tests that game.compute_utility returns a utility of 1(Player-X win)
-        on a Collumn-wise win for X'''
+        on a row-wise win for X in row 2'''
+        game = TicTacToe()
+        game.state.board = {(2,1):'X', (2,2):'X'}
+        utility = game.compute_utility((2,3), game.state)
+        expected_utility = 1
+        self.assertEqual(utility,expected_utility)
+    
+    def testComputeUtilityX_Row3(self):
+        '''Tests that game.compute_utility returns a utility of 1(Player-X win)
+        on a row-wise win for X in row 3'''
+        game = TicTacToe()
+        game.state.board = {(3,1):'X', (3,2):'X'}
+        utility = game.compute_utility((3,3), game.state)
+        expected_utility = 1
+        self.assertEqual(utility,expected_utility)
+
+    def testComputeUtilityX_Col1(self):
+        '''Tests that game.compute_utility returns a utility of 1(Player-X win)
+        on a column-wise win for X in column 1'''
         game = TicTacToe()
         game.state.board = {(1,1):'X', (2,1):'X'}
         utility = game.compute_utility((3,1), game.state)
+        expected_utility = 1
+        self.assertEqual(utility,expected_utility)
+
+    def testComputeUtilityX_Col2(self):
+        '''Tests that game.compute_utility returns a utility of 1(Player-X win)
+        on a column-wise win for X in column 2'''
+        game = TicTacToe()
+        game.state.board = {(1,2):'X', (2,2):'X'}
+        utility = game.compute_utility((3,2), game.state)
+        expected_utility = 1
+        self.assertEqual(utility,expected_utility)
+    
+    def testComputeUtilityX_Col3(self):
+        '''Tests that game.compute_utility returns a utility of 1(Player-X win)
+        on a column-wise win for X in column 3'''
+        game = TicTacToe()
+        game.state.board = {(1,3):'X', (2,3):'X'}
+        utility = game.compute_utility((3,3), game.state)
         expected_utility = 1
         self.assertEqual(utility,expected_utility)
     
@@ -56,9 +92,9 @@ class TicTacToeTest(unittest.TestCase):
         expected_utility = 1
         self.assertEqual(utility,expected_utility)
     
-    def testComputeUtilityO_Row(self):
+    def testComputeUtilityO_Row1(self):
         '''Tests that game.compute_utility returns a utility of -1(Player-O win)
-        on a row-wise win for O'''
+        on a row-wise win for O in row 1'''
         game = TicTacToe()
         game.state.board = {(1,1):'O', (1,2):'O'}
         game.state.to_move = 'O'
@@ -66,13 +102,53 @@ class TicTacToeTest(unittest.TestCase):
         expected_utility = -1
         self.assertEqual(utility,expected_utility)
     
-    def testComputeUtilityO_Col(self):
+    def testComputeUtilityO_Row2(self):
         '''Tests that game.compute_utility returns a utility of -1(Player-O win)
-        on a collumn-wise win for O'''
+        on a row-wise win for O in row 2'''
+        game = TicTacToe()
+        game.state.board = {(2,1):'O', (2,2):'O'}
+        game.state.to_move = 'O'
+        utility = game.compute_utility((2,3), game.state)
+        expected_utility = -1
+        self.assertEqual(utility,expected_utility)
+    
+    def testComputeUtilityO_Row3(self):
+        '''Tests that game.compute_utility returns a utility of -1(Player-O win)
+        on a row-wise win for O in row 3'''
+        game = TicTacToe()
+        game.state.board = {(3,1):'O', (3,2):'O'}
+        game.state.to_move = 'O'
+        utility = game.compute_utility((3,3), game.state)
+        expected_utility = -1
+        self.assertEqual(utility,expected_utility)
+    
+    def testComputeUtilityO_Col1(self):
+        '''Tests that game.compute_utility returns a utility of -1(Player-O win)
+        on a column-wise win for O in column 1'''
         game = TicTacToe()
         game.state.board = {(1,1):'O', (2,1):'O'}
         game.state.to_move = 'O'
         utility = game.compute_utility((3,1), game.state)
+        expected_utility = -1
+        self.assertEqual(utility,expected_utility)
+    
+    def testComputeUtilityO_Col2(self):
+        '''Tests that game.compute_utility returns a utility of -1(Player-O win)
+        on a column-wise win for O in column 2'''
+        game = TicTacToe()
+        game.state.board = {(1,2):'O', (2,2):'O'}
+        game.state.to_move = 'O'
+        utility = game.compute_utility((3,2), game.state)
+        expected_utility = -1
+        self.assertEqual(utility,expected_utility)
+    
+    def testComputeUtilityO_Col3(self):
+        '''Tests that game.compute_utility returns a utility of -1(Player-O win)
+        on a column-wise win for O in column 3'''
+        game = TicTacToe()
+        game.state.board = {(1,3):'O', (2,3):'O'}
+        game.state.to_move = 'O'
+        utility = game.compute_utility((3,3), game.state)
         expected_utility = -1
         self.assertEqual(utility,expected_utility)
     

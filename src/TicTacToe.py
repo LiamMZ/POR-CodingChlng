@@ -2,6 +2,10 @@ import copy as cp
 from State import State
 
 class TicTacToe:
+    ''' Class with required functions for a TicTacToe game
+    nrow = the number of rows for a game, default 3
+    ncol = the number of columns for a game, default 3
+    nwin = the number of marks in a line to win, default 3'''
     def __init__(self, nrow=3, ncol=3, nwin=3):
         self.nrow = nrow
         self.ncol = ncol
@@ -91,7 +95,7 @@ class TicTacToe:
         board = self.state.board
         print("Board:")
         print(' ', end=' ')
-        #print collumn indicies
+        #print column indicies
         for col in range(1, self.ncol + 1):
             print(col, end=' ')
         print() 
@@ -150,7 +154,7 @@ class TicTacToe:
                     while True:
                         #show updated board and request user move
                         self.display()
-                        print ('Player-{} please enter the row and collumn for your move separated by a space'
+                        print ('Player-{} please enter the row and column for your move separated by a space'
                         .format(self.state.to_move))
                         try:
                             #try to read in user input
@@ -185,7 +189,7 @@ class TicTacToe:
                 while True:
                     #show updated board and request user input
                     self.display()
-                    print ('Player-{} please enter the row and collumn for your move separated by a space'
+                    print ('Player-{} please enter the row and column for your move separated by a space'
                     .format(self.state.to_move))
                     try:
                         input_coords = input()
