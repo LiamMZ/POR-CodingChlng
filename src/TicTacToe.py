@@ -20,8 +20,8 @@ class TicTacToe:
         state = a `State` object, to represent whose turn it is and form
                 the basis for generating a **hypothetical** updated state
                 that will result from making the given `move`
-        This returns a hypothetical state, so that the alpha beta AI
-        can check multiple outcomes
+        This returns a **hypothetical** state, so that the alpha beta AI
+        can check multiple outcomes without updating the actual game state
         '''
         # Don't do anything if the move isn't a legal one
         if move not in state.moves:
@@ -180,7 +180,7 @@ class TicTacToe:
                 if self.game_over(self.state):
                     #display final board
                     self.display()
-                    #check if there is a winner or draw
+                    #check for winner or draw
                     if self.state.utility==0:
                         return 'The game ends in a draw!'
                     return 'Player-{} wins!'.format('X' if self.state.to_move=='O' else 'O')

@@ -76,7 +76,7 @@ class TicTacToeTest(unittest.TestCase):
     
     def testComputeUtilityX_LRDiag(self):
         '''Tests that game.compute_utility returns a utility of 1(Player-X win)
-        on a Left-Right-Diagonal-wise win for X'''
+        on an Upper Left->Lower Right-Diagonal-wise win for X'''
         game = TicTacToe()
         game.state.board = {(1,1):'X', (2,2):'X'}
         utility = game.compute_utility((3,3), game.state)
@@ -85,7 +85,7 @@ class TicTacToeTest(unittest.TestCase):
     
     def testComputeUtilityX_RLDiag(self):
         '''Tests that game.compute_utility returns a utility of 1(Player-X win)
-        on a Right-Left-Diagonal-wise win for X'''
+        on an Upper Right->Lower Left-Diagonal-wise win for X'''
         game = TicTacToe()
         game.state.board = {(1,3):'X', (2,2):'X'}
         utility = game.compute_utility((3,1), game.state)
@@ -154,7 +154,7 @@ class TicTacToeTest(unittest.TestCase):
     
     def testComputeUtilityO_LRDiag(self):
         '''Tests that game.compute_utility returns a utility of -1(Player-O win)
-        on a Left-Right-Diagonal-wise win for O'''
+        on an Upper Left-> Lower Right-Diagonal-wise win for O'''
         game = TicTacToe()
         game.state.board = {(1,1):'O', (2,2):'O'}
         game.state.to_move = 'O'
@@ -164,7 +164,7 @@ class TicTacToeTest(unittest.TestCase):
 
     def testComputeUtilityO_RLDiag(self):
         '''Tests that game.compute_utility returns a utility of -1(Player-O win)
-        on a Right-Left-Diagonal-wise win for O'''
+        on an Upper Right->Lower Left-Diagonal-wise win for O'''
         game = TicTacToe()
         game.state.board = {(1,3):'O', (2,2):'O'}
         game.state.to_move = 'O'
@@ -196,103 +196,13 @@ class TicTacToeTest(unittest.TestCase):
         check = game.game_over(game.state)
         self.assertEqual(check, False)
 
-    def test2PGame_Xwin(self):
-        '''Runs a mock 2-player game where X should win'''
-        #mock user input
-        mock = ['1 1', #X
-                '1 2', #O
-                '2 1', #X
-                '1 3', #O
-                '3 1'] #X
-        #suppress game print output
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-        with patch('builtins.input', side_effect=mock):
-            out = TicTacToe().play_2P_game()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(out, 'Player-X wins!')
-    
-    def test2PGame_Owin(self):
-        '''Runs a mock 2-player game where O should win'''
-        #mock user input
-        mock = ['1 1',
-                '1 3',
-                '2 1',
-                '3 1',
-                '3 3',
-                '2 2']
-        #suppress game print output
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-        with patch('builtins.input', side_effect=mock):
-            out = TicTacToe().play_2P_game()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(out, 'Player-O wins!')
-
-    def test2PGame_Draw(self):
-        '''Runs a mock 2-player game that should end in a draw'''
-        #mock user input
-        mock = ['1 1',#X
-                '1 2',#O
-                '1 3',#X
-                '3 3',#O
-                '3 2',#X
-                '3 1',#O
-                '2 1',#X
-                '2 2',#O
-                '2 3']#X
-        #suppress game print output
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-        with patch('builtins.input', side_effect=mock):
-            out = TicTacToe().play_2P_game()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(out, 'The game ends in a draw!')
-
-    def test2PGame_Xwin_InvalidInput(self):
-        '''Runs a mock 2-player game where Player-X inputs invalid
-        coordinates but eventually inputs correct coordinates
-        Player-X should win'''
-        #mock user input
-        mock = ['a 18',
-                '. 2',
-                '45 .',
-                '1 @',
-                '1 1',
-                '1 2',
-                '2 1',
-                '1 3',
-                '3 1']
-        #suppress game print output
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-        with patch('builtins.input', side_effect=mock):
-            out = TicTacToe().play_2P_game()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(out, 'Player-X wins!')
-
-    def test2PGame_Owin_invalidInput(self):
-        '''Runs a mock 2-player game where Player-O inputs invalid
-        coordinates but eventually inputs correct coordinates
-        Player-O should win'''
-        #mock user input
-        mock = ['1 1',
-                'a 18',
-                '. 2',
-                '45 .',
-                '1 @',
-                '1 3',
-                '2 1',
-                '3 1',
-                '3 3',
-                '2 2']
-        #suppress game print output
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-        with patch('builtins.input', side_effect=mock):
-            out = TicTacToe().play_2P_game()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(out, 'Player-O wins!')
+    def testGameOver_NoMoves(self):
+        ''' tests that game over returns True
+            when in a state with no moves left'''
+        game = TicTacToe()
+        game.state.moves = []
+        check = game.game_over(game.state)
+        self.assertEqual(check, True)
 
     def testRandomAI(self):
         '''Tests that the random AI returns a move
@@ -329,6 +239,109 @@ class TicTacToeTest(unittest.TestCase):
         print('Waiting for Alpha_Beta AI to choose Move...')
         move = ai.play(game)
         self.assertIn(move, game.state.moves)
+
+    def test2PGame_Xwin(self):
+        '''Runs a mock 2-player game where X should win'''
+        #mock user input
+        mock = ['1 1', #X
+                '1 2', #O
+                '2 1', #X
+                '1 3', #O
+                '3 1'] #X
+        #suppress game print output
+        text_trap = io.StringIO()
+        sys.stdout = text_trap
+        #mock input() function with test data
+        with patch('builtins.input', side_effect=mock):
+            out = TicTacToe().play_2P_game()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(out, 'Player-X wins!')
+    
+    def test2PGame_Owin(self):
+        '''Runs a mock 2-player game where O should win'''
+        #mock user input
+        mock = ['1 1',
+                '1 3',
+                '2 1',
+                '3 1',
+                '3 3',
+                '2 2']
+        #suppress game print output
+        text_trap = io.StringIO()
+        sys.stdout = text_trap
+        #mock input() function with test data
+        with patch('builtins.input', side_effect=mock):
+            out = TicTacToe().play_2P_game()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(out, 'Player-O wins!')
+
+    def test2PGame_Draw(self):
+        '''Runs a mock 2-player game that should end in a draw'''
+        #mock user input
+        mock = ['1 1',#X
+                '1 2',#O
+                '1 3',#X
+                '3 3',#O
+                '3 2',#X
+                '3 1',#O
+                '2 1',#X
+                '2 2',#O
+                '2 3']#X
+        #suppress game print output
+        text_trap = io.StringIO()
+        sys.stdout = text_trap
+        #mock input() function with test data
+        with patch('builtins.input', side_effect=mock):
+            out = TicTacToe().play_2P_game()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(out, 'The game ends in a draw!')
+
+    def test2PGame_Xwin_InvalidInput(self):
+        '''Runs a mock 2-player game where Player-X inputs invalid
+        coordinates but eventually inputs correct coordinates
+        Player-X should win'''
+        #mock user input
+        mock = ['a 18',
+                '. 2',
+                '45 .',
+                '1 @',
+                '1 1',
+                '1 2',
+                '2 1',
+                '1 3',
+                '3 1']
+        #suppress game print output
+        text_trap = io.StringIO()
+        sys.stdout = text_trap
+        #mock input() function with test data
+        with patch('builtins.input', side_effect=mock):
+            out = TicTacToe().play_2P_game()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(out, 'Player-X wins!')
+
+    def test2PGame_Owin_invalidInput(self):
+        '''Runs a mock 2-player game where Player-O inputs invalid
+        coordinates but eventually inputs correct coordinates
+        Player-O should win'''
+        #mock user input
+        mock = ['1 1',
+                'a 18',
+                '. 2',
+                '45 .',
+                '1 @',
+                '1 3',
+                '2 1',
+                '3 1',
+                '3 3',
+                '2 2']
+        #suppress game print output
+        text_trap = io.StringIO()
+        sys.stdout = text_trap
+        #mock input() function with test data
+        with patch('builtins.input', side_effect=mock):
+            out = TicTacToe().play_2P_game()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(out, 'Player-O wins!')
 
 if __name__=='__main__':
     unittest.main()

@@ -1,9 +1,8 @@
 from abc import ABC, abstractmethod
 import random
 
-
 class AI(ABC):
-    '''Abstract class'''
+    '''Abstract AI class'''
     @abstractmethod
     def play(self, game):
         pass
@@ -11,12 +10,12 @@ class AI(ABC):
 class RandomAI(AI):
     def play(self, game):
         '''An AI player that chooses a legal move at random out of all
-        available legal moves in Tic-Tac-Toe state argument'''
+        available legal moves in Tic-Tac-Toe state member'''
         return random.choice(game.state.moves)
     
 class AlphaBetaAI(AI):
     def play(self, game):
-        '''An AI player the optimal legal move by
+        '''An AI player the optimal legal move by using
         the MiniMax algorithm with alpha beta pruning in a Tic-Tac-Toe game'''
         move = self.alphabeta_search(game)
         return move
@@ -30,8 +29,7 @@ class AlphaBetaAI(AI):
             #if termninal node return value and no move
             if game.game_over(state):
                 return game.utility(state, game.state.to_move),None
-            #initiallize worst case val
-            value = -float('inf')
+            value = -float('inf') #initiallize worst case val
             bestMove = None #initialize best move
             #itterate over available moves
             for move in state.moves:
