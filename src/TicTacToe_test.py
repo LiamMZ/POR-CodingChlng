@@ -3,6 +3,7 @@ import io
 import sys
 from unittest.mock import patch
 from TicTacToe import TicTacToe
+from State import State
 from AI import AlphaBetaAI,RandomAI
 
 class TicTacToeTest(unittest.TestCase):
@@ -14,10 +15,16 @@ class TicTacToeTest(unittest.TestCase):
         self.assertEqual(expected_moves, game.state.moves)
     
     def testResult(self):
-        '''Tests that game.result updates state.board correctly'''
+        '''Tests that game.result updates state.board, state.moves
+        and state.to_move correctly'''
         game = TicTacToe()
         state = game.result((1,1), game.state)
         expected_board = {(1,1):'X'}
+        expected_moves = game.state.moves
+        expected_moves.remove((1,1))
+        expected_toMove = 'O'
+        self.assertEqual(expected_toMove, state.to_move)
+        self.assertEqual(state.moves, expected_moves)
         self.assertEqual(expected_board, state.board)
     
     def testComputeUtilityX_Row1(self):
