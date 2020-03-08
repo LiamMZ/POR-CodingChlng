@@ -1,12 +1,20 @@
+from abc import ABC, abstractmethod
 import random
 
-class RandomAI:
+
+class AI(ABC):
+    '''Abstract class'''
+    @abstractmethod
+    def play(self, game):
+        pass
+
+class RandomAI(AI):
     def play(self, game):
         '''An AI player that chooses a legal move at random out of all
         available legal moves in Tic-Tac-Toe state argument'''
         return random.choice(game.state.moves)
     
-class AlphaBetaAI:
+class AlphaBetaAI(AI):
     def play(self, game):
         '''An AI player the optimal legal move by
         the MiniMax algorithm with alpha beta pruning in a Tic-Tac-Toe game'''
@@ -69,3 +77,7 @@ class AlphaBetaAI:
         beta = float('inf')
         _,action = max_value(game,game.state,alpha,beta)
         return action
+
+if __name__ == '__main__':
+    ai1 = RandomAI()
+    ai2 = AlphaBetaAI()

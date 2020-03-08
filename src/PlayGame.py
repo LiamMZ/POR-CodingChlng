@@ -32,7 +32,7 @@ def play():
         while True:
             print('Please enter an option below:')
             print('1 - Easy AI')
-            print('2 - Hard AI (Warning the hard AI takes longer to decide)')
+            print('2 - Hard AI')
             try:
                 choice = int(input())
                 _ = handleMenuInput(choice)
