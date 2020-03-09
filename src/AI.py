@@ -15,7 +15,7 @@ class RandomAI(AI):
     
 class AlphaBetaAI(AI):
     def play(self, game):
-        '''An AI player the optimal legal move by using
+        '''An AI player that chooses the optimal legal move by using
         the MiniMax algorithm with alpha beta pruning in a Tic-Tac-Toe game'''
         move = self.alphabeta_search(game)
         return move
