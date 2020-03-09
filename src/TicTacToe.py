@@ -116,6 +116,8 @@ class TicTacToe:
             move = (int(user_input.split()[2]),
                     int(user_input.split()[1]))
         #check for out of bounds move
+        if len(user_input.split())>2:
+            raise ValueError('Too many arguments given')
         if (move[0]<0 or move[1]<0) or(move[0]>self.nrow or move[1]>self.ncol):
             raise ValueError('Out of Bounds Move')
         #check if move is already taken
