@@ -5,13 +5,14 @@ Tic Tac Toe
 =========================== 
 This is a tic-tac-toe command line game that you can play 1-Player against 2 different AI options or 2-Player against another human.
 
-## Code Details
 ## How To Run
 
 |        Command          | Runs |
 | -------------------- | ---------- |
 | python3 src/PlayGame.py  |          A Game of Tic Tac Toe |
 | python3 src/TicTacToe_test.py   |        Test Cases |
+
+## Code Details
 ### Board
 _ 1 2 3 <br>
 1 X X X <br>
