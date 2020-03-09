@@ -308,7 +308,7 @@ class TicTacToeTest(unittest.TestCase):
         coordinates but eventually inputs correct coordinates
         Player-X should win'''
         #mock user input
-        mock = ['a 18',
+        mock = ['a 18 a b 12 2 5',
                 '. 2',
                 '45 .',
                 '1 @',
