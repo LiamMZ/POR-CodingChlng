@@ -26,6 +26,6 @@ This AI will choose the optimal move based on the [mini-max algorithm](https://e
 |        Command          | Runs |
 | -------------------- | ---------- |
 | python3 /src/PlayGame.py  |          A Game of Tic Tac Toe |
-| python3 /src/TicTacToe_test.py   |         Unit Tests |
+| python3 /src/TicTacToe_test.py   |        Test Cases |
 
 
