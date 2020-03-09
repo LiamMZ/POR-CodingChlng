@@ -6,6 +6,12 @@ Tic Tac Toe
 This is a tic-tac-toe command line game that you can play 1-Player against 2 different AI options or 2-Player against another human.
 
 ## Code Details
+## How To Run
+
+|        Command          | Runs |
+| -------------------- | ---------- |
+| python3 src/PlayGame.py  |          A Game of Tic Tac Toe |
+| python3 src/TicTacToe_test.py   |        Test Cases |
 ### Board
 _ 1 2 3 <br>
 1 X X X <br>
@@ -21,11 +27,5 @@ This AI will randomly choose from the available moves on their turn.
 #### Hard (Alpha Beta) AI
 This AI will choose the optimal move based on the [mini-max algorithm](https://en.wikipedia.org/wiki/Minimax) using the [alpha beta pruning](https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning) method.
 
-## How To Run
-
-|        Command          | Runs |
-| -------------------- | ---------- |
-| python3 src/PlayGame.py  |          A Game of Tic Tac Toe |
-| python3 src/TicTacToe_test.py   |        Test Cases |
 
 
